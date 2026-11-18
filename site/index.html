@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#1f3029">
+  <meta name="description" content="Lifecraft：在自己的方块营地接取 Life 任务，专注、领取经验与方块，建造属于自己的世界。">
+  <title>Lifecraft · 玩自己的生活</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/Manrope.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="calendar.css?v=0.2.1">
+  <link rel="stylesheet" href="game.css?v=0.2.1">
+  <script src="calendar-model.js?v=0.2.1" defer></script>
+  <script src="calendar-data.js?v=0.2.1" defer></script>
+  <script src="calendar.js?v=0.2.1" defer></script>
+  <script src="game-model.js?v=0.2.1" defer></script>
+  <script src="game.js?v=0.2.1" defer></script>
+  <script type="module" src="world.js?v=0.2.1"></script>
+</head>
+<body class="game-mode">
+  <a class="skip-link button-sm" href="#game-view">跳到游戏内容</a>
+  <svg id="icon-sprite" xmlns="http://www.w3.org/2000/svg" hidden aria-hidden="true"><symbol id="i-calendar-blank" viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></symbol><symbol id="i-list-checks" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H128a8,8,0,0,1,0-16h88A8,8,0,0,1,224,128ZM128,72h88a8,8,0,0,0,0-16H128a8,8,0,0,0,0,16Zm88,112H128a8,8,0,0,0,0,16h88a8,8,0,0,0,0-16ZM82.34,42.34,56,68.69,45.66,58.34A8,8,0,0,0,34.34,69.66l16,16a8,8,0,0,0,11.32,0l32-32A8,8,0,0,0,82.34,42.34Zm0,64L56,132.69,45.66,122.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32,0l32-32a8,8,0,0,0-11.32-11.32Zm0,64L56,196.69,45.66,186.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32,0l32-32a8,8,0,0,0-11.32-11.32Z"/></symbol><symbol id="i-squares-four" viewBox="0 0 256 256"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"/></symbol><symbol id="i-book-open" viewBox="0 0 256 256"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></symbol><symbol id="i-arrow-up-right" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></symbol><symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol><symbol id="i-caret-left" viewBox="0 0 256 256"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></symbol><symbol id="i-caret-right" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></symbol><symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol><symbol id="i-check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol><symbol id="i-magnifying-glass" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></symbol><symbol id="i-dots-three" viewBox="0 0 256 256"><path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm56-12a12,12,0,1,0,12,12A12,12,0,0,0,196,116ZM60,116a12,12,0,1,0,12,12A12,12,0,0,0,60,116Z"/></symbol><symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></symbol><symbol id="i-sidebar-simple" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,56H80V200H40ZM216,200H96V56H216V200Z"/></symbol><symbol id="i-export" viewBox="0 0 256 256"><path d="M216,112v96a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V112A16,16,0,0,1,56,96H80a8,8,0,0,1,0,16H56v96H200V112H176a8,8,0,0,1,0-16h24A16,16,0,0,1,216,112ZM93.66,69.66,120,43.31V136a8,8,0,0,0,16,0V43.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,69.66Z"/></symbol><symbol id="i-download-simple" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></symbol></svg>
+  <svg hidden aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="p-grass" viewBox="0 0 32 32"><path fill="#527f3c" d="m16 1 15 8-15 9L1 9Z"/><path fill="#7a4b30" d="m1 9 15 9v14L1 23Z"/><path fill="#a16c40" d="m16 18 15-9v14l-15 9Z"/><path fill="#8dbb53" d="m16 1 15 8-15 7L1 9Z"/><path fill="#65943e" d="m1 9 15 7v6l-4-2v-3l-5-2v3l-6-3Z"/><path fill="#6e9c43" d="m16 16 15-7v5l-5 2v4l-5 2v-4l-5 3Z"/></symbol>
+    <symbol id="p-pick" viewBox="0 0 32 32"><path fill="#70472c" d="m4 26 3 3 17-17-3-3Z"/><path fill="#b18042" d="m4 26 2 2 17-17-2-2Z"/><path fill="#374b4c" d="M8 3h14v4h5v5h3v8h-4v-6l-5-5H8Z"/><path fill="#9bccc1" d="M8 3h14v4h5v5h-5V9H8Z"/></symbol>
+    <symbol id="p-sword" viewBox="0 0 32 32"><path fill="#784d2c" d="m3 25 4 4 7-7-4-4Z"/><path fill="#e0ae4b" d="m7 16 9 9 3-3-9-9Z"/><path fill="#3c685e" d="m12 15 5 5L29 8V2h-6Z"/><path fill="#a8dfce" d="m12 15 2 2L26 5h3V2h-6Z"/></symbol>
+    <symbol id="p-book" viewBox="0 0 32 32"><path fill="#5e462f" d="M3 4h23v25H3Z"/><path fill="#8874a9" d="M6 2h23v24H6Z"/><path fill="#c5b3db" d="M6 2h4v24H6Z"/><path fill="#f4e6b9" d="M12 8h12v3H12Zm0 6h9v3h-9ZM6 26h23v3H6Z"/></symbol>
+    <symbol id="p-clock" viewBox="0 0 32 32"><path fill="#765332" d="M8 2h16v4h4v4h3v14h-4v4h-4v3H8v-4H4v-4H1V10h4V6h3Z"/><path fill="#e4c471" d="M9 5h14v4h4v14h-5v4H9v-4H5V9h4Z"/><path fill="#fff2c3" d="M10 8h12v3h3v11h-4v3H10v-4H7V11h3Z"/><path fill="#485e53" d="M14 9h3v9h-7v-3h4Z"/></symbol>
+    <symbol id="p-chest" viewBox="0 0 32 32"><path fill="#5b3d28" d="M2 7h28v23H2Z"/><path fill="#bd853d" d="M4 5h24v10H4Zm0 13h24v10H4Z"/><path fill="#e4b557" d="M4 5h24v3H4Z"/><path fill="#805425" d="M7 8h3v7H7Zm15 0h3v7h-3ZM7 18h3v10H7Zm15 0h3v10h-3Z"/><path fill="#eedca1" d="M13 13h6v8h-6Z"/></symbol>
+    <symbol id="p-star" viewBox="0 0 32 32"><path fill="#986622" d="M13 2h6v8h10v6h-7v13h-6v-6h-6v6H4V16H1v-6h12Z"/><path fill="#efc65c" d="M13 2h6v8h10v4H19v9h-6v-9H3v-4h10Z"/></symbol>
+    <symbol id="p-flag" viewBox="0 0 32 32"><path fill="#805e36" d="M5 2h3v29H5Z"/><path fill="#df9970" d="M8 3h20v6h-4v5H8Z"/><path fill="#b45c48" d="M8 14h16v4H8Z"/></symbol>
+    <symbol id="p-tree" viewBox="0 0 32 32"><path fill="#7b5536" d="M13 19h6v12h-6Z"/><path fill="#346a45" d="M10 2h12v6h6v14H4V8h6Z"/><path fill="#6da258" d="M10 2h12v6H10ZM4 8h13v8H4Zm13 0h11v5H17Z"/></symbol>
+  </svg>
+  <header class="game-header">
+    <a href="index.html" class="game-brand" aria-label="Lifecraft 营地首页"><svg aria-hidden="true"><use href="#p-grass"/></svg><span>LIFECRAFT<small>把生活，玩成自己的世界</small></span></a>
+    <nav class="game-nav" aria-label="游戏视图"><button data-screen="world" aria-pressed="true">我的营地</button><button data-screen="quests" aria-pressed="false">任务日志</button><button data-screen="calendar" aria-pressed="false">时间地图</button></nav>
+    <div class="player-hud"><div class="pixel-avatar" aria-hidden="true"><i></i></div><div class="player-level"><div><strong id="player-level">LV. 1</strong><span>PLAYER · 探索者</span></div><div class="xp-track"><span id="player-xp-bar"></span></div><span id="player-xp-label">0 / 100 XP</span></div><button class="block-wallet" data-action="build" aria-label="查看方块与建造"><svg><use href="#p-grass"/></svg><strong id="block-count">0</strong><span>方块</span></button></div>
+  </header>
+  <div class="game-datebar"><div class="chapter-label"><span class="chapter-dot"></span><strong>第一章 · 一块自己的天地</strong><span id="game-date"></span></div><div class="game-date-actions"><button id="game-date-prev" aria-label="上一天">‹</button><button id="game-today">今天</button><button id="game-date-next" aria-label="下一天">›</button><span class="game-save" id="game-save">本地存档</span></div></div>
+  <main id="game-view" class="game-view" tabindex="-1" aria-label="Life 方块营地">
+    <section class="world-frame" aria-label="可探索的营地">
+      <div id="world-canvas" class="world-canvas" tabindex="0" role="application" aria-label="方块营地：点击地面移动，WASD 或方向键行走，点击任务站选择分类。也可使用右侧任务日志。"><div class="world-loading"><svg><use href="#p-grass"/></svg><span>正在生成你的营地…</span></div></div>
+      <div class="world-caption"><span class="world-location">MY OVERWORLD</span><h1><span class="desktop-world-title">生活，是一场<br>自己建造的冒险。</span><span class="mobile-world-title">今天，继续冒险。</span></h1><p>做完一件小事，世界就多一块。</p></div>
+      <div class="world-weather" aria-label="营地游戏场景为白天"><span class="pixel-sun"></span><span>平原营地<small>慢慢探索，不着急</small></span></div>
+      <div class="station-labels" id="station-labels"><button class="station-label" data-station="work"><span>!</span>工作台<small>工作与创业</small></button><button class="station-label" data-station="life"><span>!</span>生活小屋<small>生活与转场</small></button><button class="station-label" data-station="study"><span>!</span>知识之树<small>学习与成长</small></button></div>
+      <div class="world-controls"><button id="world-rotate" aria-label="旋转营地视角">↻</button><button id="world-zoom-in" aria-label="拉近营地">+</button><button id="world-zoom-out" aria-label="拉远营地">−</button></div>
+      <div class="focus-hud" id="focus-hud"></div>
+      <div class="build-hud" id="build-hud" hidden><div><strong>自由搭建</strong><span id="build-balance">0 个方块</span><button data-action="exit-build" aria-label="退出建造">×</button></div><p>点击放置 · 右键回收 · 每块 1 材料</p><div class="block-palette"><button data-block-type="grass" aria-pressed="true"><i class="block-swatch grass"></i>草</button><button data-block-type="wood" aria-pressed="false"><i class="block-swatch wood"></i>木</button><button data-block-type="stone" aria-pressed="false"><i class="block-swatch stone"></i>石</button><button data-action="undo-block">回收上一块</button></div></div>
+      <div class="world-help"><kbd>W A S D</kbd><span>移动</span><span class="control-dot">·</span><span>点击营地探索</span><button data-action="help" aria-label="玩法说明">?</button></div>
+      <div class="world-status" id="world-status" role="status" aria-live="polite"></div>
+      <div class="world-fallback" id="world-fallback" hidden><h2>营地暂时没能展开</h2><p>当前浏览器无法开启 3D。任务日志与时间地图仍可正常使用。</p><button data-screen="quests" class="pixel-button">打开任务日志</button></div>
+    </section>
+    <aside class="quest-panel" aria-labelledby="quest-heading"><header class="quest-header"><div><svg><use href="#p-book"/></svg><h2 id="quest-heading">今日冒险</h2></div><button class="pixel-icon-button" data-action="new" aria-label="新建任务">+</button></header><div class="quest-tabs" aria-label="任务筛选"><button data-quest-filter="today" aria-pressed="true">今天</button><button data-quest-filter="all" aria-pressed="false">全部</button><button data-quest-filter="done" aria-pressed="false">已完成</button></div><div class="quest-summary" id="quest-summary"></div><p class="quest-goal" id="quest-goal"></p><div class="quest-category" id="quest-category" hidden></div><div class="quest-content" id="quest-content"></div><div class="quest-footer"><svg><use href="#p-clock"/></svg><span id="game-free-time"></span><button data-screen="calendar">去安排 →</button></div></aside>
+  </main>
+  <div id="game-log" class="game-log" hidden></div>
+  <footer class="game-footer"><div class="camp-info"><span class="camp-level" id="camp-level">新手营地</span><span id="camp-buildings">0 / 3 座建筑</span><span id="camp-next">小麦农场 · 还差 3 方块</span></div><nav class="hotbar" aria-label="快捷背包"><button data-action="quests" class="selected" aria-label="任务日志"><small>1</small><svg><use href="#p-sword"/></svg><span>任务</span></button><button data-action="focus" aria-label="开始或查看专注"><small>2</small><svg><use href="#p-pick"/></svg><span>专注</span></button><button data-action="build" aria-label="建造营地"><small>3</small><svg><use href="#p-grass"/></svg><span>建造</span></button><button data-screen="calendar" aria-label="时间地图"><small>4</small><svg><use href="#p-clock"/></svg><span>时间</span></button><button data-action="journal" aria-label="冒险记录"><small>5</small><svg><use href="#p-book"/></svg><span>记录</span></button><button data-action="backup" aria-label="存档与备份"><small>6</small><svg><use href="#p-chest"/></svg><span>存档</span></button></nav><div class="game-footer-note"><span>每完成一件，世界就多一块。</span><button id="sound-toggle" aria-pressed="false">音效：关</button></div></footer>
+  <dialog id="game-dialog" class="game-dialog" aria-labelledby="game-dialog-title"><header><h2 id="game-dialog-title">营地建造</h2><button class="pixel-icon-button" id="game-dialog-close" aria-label="关闭面板">×</button></header><div id="game-dialog-content"></div></dialog>
+  <div class="reward-overlay" id="reward-overlay" role="status" aria-live="polite" hidden><svg><use href="#p-star"/></svg><strong>任务完成</strong><p id="reward-text"></p><span>你又给自己的世界，添了一块。</span><button id="reward-dismiss" class="pixel-button">收好奖励</button></div>
+  <div class="mobile-shade" id="mobile-shade" hidden></div>
+  <div id="calendar-view" hidden>
+  <aside class="sidebar" id="sidebar" aria-label="Life 工作空间">
+    <a class="brand" href="index.html" aria-label="Life 日历首页"><span class="brand-symbol" aria-hidden="true">l<span>ı</span>fe</span><span class="caption-4">PERSONAL SPACE</span></a>
+    <button class="search-launch body-6" id="search-launch"><svg><use href="#i-magnifying-glass"/></svg><span>搜索待办</span><kbd>⌘ K</kbd></button>
+    <nav class="primary-nav" aria-label="工作空间">
+      <a href="index.html" class="nav-item title-4" aria-current="page"><svg><use href="#i-calendar-blank"/></svg>我的日历<span class="nav-dot"></span></a>
+    </nav>
+    <section class="mini-calendar" aria-label="选择日期">
+      <div class="mini-month"><strong class="title-4" id="mini-title"></strong><div><button class="icon-button" id="mini-prev" aria-label="上个月"><svg><use href="#i-caret-left"/></svg></button><button class="icon-button" id="mini-next" aria-label="下个月"><svg><use href="#i-caret-right"/></svg></button></div></div>
+      <div class="mini-week caption-5" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+      <div class="mini-days" id="mini-days"></div>
+    </section>
+    <section class="calendar-filters" aria-labelledby="filter-heading">
+      <h2 class="caption-4 section-label" id="filter-heading">我的分类</h2>
+      <label class="filter-row title-4"><input type="checkbox" value="work" checked><span class="category-box work"></span>工作与创业<span class="category-count caption-5" data-category-count="work"></span></label>
+      <label class="filter-row title-4"><input type="checkbox" value="life" checked><span class="category-box life"></span>生活与转场<span class="category-count caption-5" data-category-count="life"></span></label>
+      <label class="filter-row title-4"><input type="checkbox" value="study" checked><span class="category-box study"></span>学习与成长<span class="category-count caption-5" data-category-count="study"></span></label>
+    </section>
+    <div class="sidebar-note"><svg><use href="#i-book-open"/></svg><p class="body-6">把时间留给<br><strong class="title-4">真正重要的事。</strong></p><span class="caption-5">一步一步，过好今天。</span></div>
+    <div class="sidebar-bottom"><span class="avatar title-3">L</span><div><strong class="title-4">我的营地</strong><span class="caption-5">本地存档</span></div><button class="icon-button" id="backup-open" aria-label="备份与数据说明"><svg><use href="#i-dots-three"/></svg></button></div>
+  </aside>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="breadcrumb title-4"><button class="icon-button mobile-menu" id="mobile-menu" aria-label="打开导航" aria-expanded="false"><svg><use href="#i-sidebar-simple"/></svg></button><span>Life</span><span class="crumb-slash">/</span><strong>我的日历</strong><span class="personal-tag caption-5">个人</span></div>
+      <div class="topbar-right"><span class="save-status caption-5" id="save-status"><span></span>保存在此浏览器</span><button class="icon-button" id="export-top" aria-label="导出日历备份"><svg><use href="#i-export"/></svg></button><span class="avatar small caption-3" aria-label="玩家">L</span></div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="page-heading"><div><h1 class="heading-4">让每一天，清晰一点。</h1><p class="body-6 intro-copy">待办有着落，时间有余地。</p></div><button class="primary-button button-sm" id="add-task"><svg><use href="#i-plus"/></svg>新建待办</button></div>
+      <div class="overview" id="overview" aria-label="所选日期的时间概览"></div>
+      <div class="workspace-grid">
+        <section class="calendar-panel" aria-labelledby="timeline-heading">
+          <div class="calendar-toolbar"><div class="range-navigation"><h2 class="title-2" id="timeline-heading"></h2><div class="range-arrows"><button class="icon-button" id="range-prev" aria-label="上一周"><svg><use href="#i-caret-left"/></svg></button><button class="icon-button" id="range-next" aria-label="下一周"><svg><use href="#i-caret-right"/></svg></button></div><button class="today-button button-Xsm" id="go-today">今天</button></div><div class="view-switch" aria-label="日历视图"><button class="button-Xsm" data-view="week" aria-pressed="true">周</button><button class="button-Xsm" data-view="day" aria-pressed="false">日</button></div></div>
+          <div class="calendar-subbar"><div class="legend caption-5"><span><i class="dot red"></i>截止</span><span><i class="dot blue"></i>已安排</span><span><i class="dot green"></i>已完成</span></div><label class="free-toggle caption-5"><input type="checkbox" id="show-free" checked>显示空闲</label></div>
+          <div class="search-bar" id="search-bar" hidden><svg><use href="#i-magnifying-glass"/></svg><input id="search" type="search" placeholder="搜索当前日历的待办与备注" aria-label="搜索待办" maxlength="160"><button class="icon-button" id="search-close" aria-label="关闭搜索"><svg><use href="#i-x"/></svg></button></div>
+          <div class="calendar-scroll" id="calendar-scroll"><div class="calendar-content" id="calendar-content"><div class="week-header" id="week-header"></div><div class="all-day-row" id="all-day-row"></div><div class="time-grid" id="time-grid"></div></div></div>
+          <footer class="calendar-footer caption-5"><span><svg><use href="#i-clock"/></svg>09:00 至 19:00 · 本地</span><span id="calendar-hint">点击空白处安排时间</span></footer>
+        </section>
+        <aside class="day-panel" aria-labelledby="day-title"><div class="day-panel-heading"><div><p class="caption-5" id="selected-weekday"></p><h2 class="heading-5" id="day-title"></h2></div><span class="day-progress caption-3" id="day-progress"></span></div><div class="day-progress-track" aria-hidden="true"><span id="day-progress-bar"></span></div><div id="day-tasks"></div><section class="deadline-section" aria-labelledby="deadline-heading"><div class="section-heading"><h3 class="title-4" id="deadline-heading">接下来要到期</h3><svg><use href="#i-arrow-up-right"/></svg></div><div id="upcoming-deadlines"></div></section><div class="suggestion-note caption-5"><span class="dot blue"></span><p>标注「建议」的事项可以调整。<br>浅蓝空档是可安排时间。</p></div></aside>
+      </div>
+      <footer class="page-footer caption-5"><span>Life · 为自己的生活留一份清晰</span><span>初始时段为建议 · <button id="data-info">数据与来源</button></span></footer>
+    </main>
+  </div>
+
+  </div>
+  <dialog id="task-dialog" aria-labelledby="task-dialog-title"><form id="task-form" novalidate><div class="dialog-heading"><div><p class="caption-4 muted">留一段时间，推进一件事</p><h2 class="heading-5" id="task-dialog-title">新建待办</h2></div><button class="icon-button" type="button" data-close="task-dialog" aria-label="关闭编辑"><svg><use href="#i-x"/></svg></button></div>
+    <label class="title-4">待办名称<input id="task-title" maxlength="160" placeholder="今天想推进什么？" required></label>
+    <div class="form-grid"><label class="title-4">计划日期<input type="date" id="task-date" required min="2000-01-01" max="2099-12-31"></label><label class="title-4">分类<select id="task-category"><option value="work">工作与创业</option><option value="life">生活与转场</option><option value="study">学习与成长</option></select></label></div>
+    <div class="form-grid"><label class="title-4">开始时间<input type="time" id="task-start" step="900"></label><label class="title-4">结束时间<input type="time" id="task-end" step="900"></label></div><p class="caption-5 muted field-hint">留空即为待安排；全天可排时段，空闲统计范围为 09:00 至 19:00。</p>
+    <div class="form-grid"><label class="title-4">截止日期<span class="optional caption-5">可选</span><input type="date" id="task-due" min="2000-01-01" max="2099-12-31"></label><label class="title-4">截止时间<span class="optional caption-5">本地时间</span><input type="time" id="task-due-time"></label></div>
+    <label class="title-4">预计用时<span class="optional caption-5">分钟</span><input type="number" id="task-estimate" min="5" max="600" step="5" value="60"></label>
+    <label class="title-4">备注<textarea id="task-notes" maxlength="4000" rows="3" placeholder="下一步、完成标准或需要确认的事"></textarea></label>
+    <div class="form-checks"><label class="body-6"><input type="checkbox" id="task-proposed">这是建议安排</label><label class="body-6"><input type="checkbox" id="task-done">已完成</label></div><a id="task-source" class="source-link caption-4" target="_blank" rel="noopener" hidden>打开原始材料 ↗</a><p class="form-error body-6" id="form-error" role="alert" hidden></p><div class="dialog-actions"><button type="button" class="text-danger button-sm" id="delete-task" hidden>删除待办</button><div><button type="button" class="secondary-button button-sm" data-close="task-dialog">取消</button><button type="submit" class="primary-button button-sm">保存待办</button></div></div>
+  </form></dialog>
+
+  <dialog id="data-dialog" aria-labelledby="data-dialog-title"><div class="dialog-heading"><h2 class="heading-5" id="data-dialog-title">让记录留在自己手里</h2><button class="icon-button" data-close="data-dialog" aria-label="关闭数据说明"><svg><use href="#i-x"/></svg></button></div><div class="data-copy body-6"><p>这是公开演示版，初始任务均为虚构示例。你的任务、专注与营地进度只保存在当前浏览器。</p><p>没有账号，也没有上传任务的接口。你可以自行导出 JSON 备份，或在自己的另一台设备上手动导入。请保管好备份文件。</p><p>空闲按本地时间每天 09:00 至 19:00 减去全部安排的并集计算。初始时段是演示安排，可以修改。</p></div><div class="backup-actions"><button class="secondary-button button-sm" id="export-data"><svg><use href="#i-export"/></svg>导出备份</button><button class="secondary-button button-sm" id="import-data"><svg><use href="#i-download-simple"/></svg>导入备份</button></div><p class="caption-5 muted">导入有效备份前会先下载当前记录。备份只在浏览器里读取，不会上传。</p><p id="data-message" class="body-6" role="status"></p><input id="import-file" type="file" accept=".json,application/json" hidden></dialog>
+  <div class="toast body-6" id="toast" role="status" aria-live="polite" hidden><span id="toast-text"></span><button class="button-Xsm" id="undo" hidden>撤销</button><button class="icon-button" id="toast-close" aria-label="关闭提示"><svg><use href="#i-x"/></svg></button></div>
+  <div class="storage-warning body-6" id="storage-warning" role="alert" hidden></div>
+</body>
+</html>

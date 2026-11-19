@@ -37,6 +37,25 @@ All bundled tasks are fictional demo examples, generated relative to the current
 
 Your tasks and game state stay in this browser. Use the save inventory to export a JSON backup and restore it yourself on another device. A static hosting provider will receive ordinary website requests; this app has no API for uploading task content.
 
+## Optional Codex skill
+
+The [Lifecraft skill](skills/lifecraft/SKILL.md) records progress from a daily task chat in the Lifecraft browser tab you use. It updates the same quest across turns and records the next action when work is still open. It uses the browser task editor and requires Codex to have access to that tab.
+
+From a checkout of this repository, install the skill in your Codex skills directory.
+
+```sh
+lifecraft_skill_dir="${CODEX_HOME:-$HOME/.codex}/skills/lifecraft"
+mkdir -p "$lifecraft_skill_dir"
+cp -i skills/lifecraft/SKILL.md "$lifecraft_skill_dir/SKILL.md"
+```
+
+Use `$lifecraft` to try it in a chat. To activate it in daily task chats without naming it each time, add this instruction to the `AGENTS.md` of your daily-planning workspace.
+
+```md
+In chats used to assign and track daily tasks, apply the installed `lifecraft`
+skill before ending a turn that added a task or changed its progress.
+```
+
 ## Development
 
 The app is buildless HTML, CSS and JavaScript, with self-hosted Three.js and fonts. `calendar-model.js` owns time rules, `game-model.js` owns rewards and building rules, and `world.js` renders the voxel camp. The scene, textures and game icons are original procedural artwork.
